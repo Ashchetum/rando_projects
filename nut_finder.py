@@ -19,10 +19,14 @@ for url in urls:
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
-        page_text = soup.get_text().lower()
 
-        for term in search_terms:
-            if term in page_text:
-                print(f"Found '{term}' on: {url}")
+        lines = soup.get_text().splitlines()
+
+        for line in lines:
+            lower_line = line.lower()
+            for term in search_terms:
+                if term in lower_line:
+                    print(f"\nFound '{term}' on: \033[94m{url}\033[0m")
+                    print(f"  Line: {line.strip()}")
     except Exception as e:
         print(f"Error processing {url}: {e}")
