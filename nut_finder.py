@@ -1,12 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-# List of URLs to crawl
-urls = [
-    "https://example.com",
-    "https://example.org",
-    "https://example.net",
-]
+# Generate URLs from page 1 to 8
+base_url = "https://www.mountainproject.com/forum/103989416/for-sale-for-free-want-to-buy?page="
+urls = [f"{base_url}{i}" for i in range(1, 9)]
 
 # Strings to search for
 search_terms = ["brass", "nut", "stop"]
