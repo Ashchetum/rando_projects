@@ -1,9 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-# Generate URLs from page 1 to 8
+# Generate URLs from page 1 to 10
 base_url = "https://www.mountainproject.com/forum/103989416/for-sale-for-free-want-to-buy?page="
-urls = [f"{base_url}{i}" for i in range(1, 9)]
+urls = [f"{base_url}{i}" for i in range(1, 11)]
 
 # Strings to search for
 search_terms = ["brass", "nut", "stop"]
@@ -20,13 +20,17 @@ for url in urls:
         response.raise_for_status()
         soup = BeautifulSoup(response.text, "html.parser")
 
-        lines = soup.get_text().splitlines()
+        # Find all hyperlinks on the page
+        links = soup.find_all("a", href=True)
 
-        for line in lines:
-            lower_line = line.lower()
+        for link in links:
+            link_text = link.get_text().strip().lower()
+            link_href = link["href"]
+
             for term in search_terms:
-                if term in lower_line:
-                    print(f"\nFound '{term}' on: \033[94m{url}\033[0m")
-                    print(f"  Line: {line.strip()}")
+                if term in link_text:
+                    print(f"\nFound '{term}':")
+                    print(f"  Link Text: {link.get_text().strip()}")
+                    print(f"  Hyperlink: \033[94m{link_href}\033[0m")
     except Exception as e:
         print(f"Error processing {url}: {e}")
