@@ -6,7 +6,7 @@ base_url = "https://www.mountainproject.com/forum/103989416/for-sale-for-free-wa
 urls = [f"{base_url}{i}" for i in range(1, 11)]
 
 # Strings to search for
-search_terms = ["tailor"]
+search_terms = ["nut, cam, rope"]
 
 # Headers to mimic a browser
 headers = {
